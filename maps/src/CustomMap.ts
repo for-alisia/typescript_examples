@@ -1,11 +1,12 @@
 import {} from 'google-maps';
 
 /** Interface for adding marker on the map */
-interface IMappable {
+export interface IMappable {
   location: {
     lat: number;
     lng: number;
   };
+  markerInfo(): string;
 }
 
 export class CustomMap {
@@ -22,12 +23,20 @@ export class CustomMap {
   }
 
   addMarker(mappable: IMappable) {
-    new google.maps.Marker({
+    const marker = new google.maps.Marker({
       map: this.googleMap,
       position: {
         lat: mappable.location.lat,
         lng: mappable.location.lng
       }
+    });
+
+    const infoWindow = new google.maps.InfoWindow({
+      content: mappable.markerInfo()
+    });
+
+    marker.addListener('click', () => {
+      infoWindow.open(this.googleMap, marker);
     });
   }
 }
