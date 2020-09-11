@@ -1,8 +1,8 @@
-import { CsvFileReader } from './CsvFileReader';
+import { MatchReader } from './MatchReader';
 import { dateStringToDate } from './utils';
 import { MatchResult } from './MatchResult';
 
-const reader = new CsvFileReader('./football.csv');
+const reader = new MatchReader('./football.csv');
 reader.read();
 
 console.log(dateStringToDate('01/06/2020'));
