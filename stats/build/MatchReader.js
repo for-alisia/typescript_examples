@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MatchReader = void 0;
 var utils_1 = require("./utils");
+// Specific class to convert table row data to correct types
 var MatchReader = /** @class */ (function () {
     function MatchReader(reader) {
         this.reader = reader;
