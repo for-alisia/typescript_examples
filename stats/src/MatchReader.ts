@@ -1,6 +1,8 @@
-import { dateStringToDate } from './utils';
+/** Models */
 import { MatchResult } from './MatchResult';
 import { MatchData } from './MatchData';
+/** Utils */
+import { dateStringToDate } from './utils';
 
 interface DataReader {
   read(): void;

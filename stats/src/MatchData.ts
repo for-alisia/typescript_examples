@@ -1,3 +1,4 @@
+/** Models */
 import { MatchResult } from './MatchResult';
 
 // Specific type for the table row of match data

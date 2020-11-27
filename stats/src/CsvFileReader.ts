@@ -1,3 +1,4 @@
+/** Common */
 import fs from 'fs';
 
 // Specific class to read the CSV file
