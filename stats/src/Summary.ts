@@ -1,3 +1,6 @@
+/** Reports */
+import { HtmlReport } from './reports/HtmlReport';
+import { WinAnalysis } from './analyzers/WinsAnalysis';
 /** Models */
 import { MatchData } from './MatchData';
 
@@ -10,6 +13,11 @@ export interface OutputTarget {
 }
 
 export class Summary {
+  // Static method for predefined report (wins with html)
+  static winsAnalysisWithHtml(team: string): Summary {
+    return new Summary(new WinAnalysis(team), new HtmlReport());
+  }
+
   constructor(public analyzer: Analyzer, public outputTarget: OutputTarget) {}
 
   buildAndPrintReport(matches: MatchData[]): void {
