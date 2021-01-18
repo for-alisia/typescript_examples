@@ -4,5 +4,18 @@ const user = new User({ name: 'Alex', age: 8 });
 
 user.set({ name: 'Alice' });
 
-console.log(user.get('name'));
-console.log(user.get('age'));
+user.on('change', () => {
+  console.log('Change #1');
+});
+
+user.on('change', () => {
+  console.log('change #2');
+});
+
+user.on('save', () => {
+  console.log('save event!!!');
+});
+
+user.trigger('noExistEvent');
+user.trigger('change');
+user.trigger('save');
