@@ -4,6 +4,7 @@ interface HasId {
   id?: number;
 }
 
+/** Common class to exchange data with server side */
 export class Sync<T extends HasId> {
   constructor(public rootUrl: string) {}
 

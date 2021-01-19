@@ -1,5 +1,6 @@
 type Callback = () => void;
 
+/** Common class to control eventing model */
 export class Eventing {
   events: { [key: string]: Callback[] } = {};
 

@@ -117,7 +117,37 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
+})({"src/models/Attributes.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Attributes = void 0;
+/** Common class to deal with attributes inside the other class */
+
+var Attributes =
+/** @class */
+function () {
+  function Attributes(data) {
+    this.data = data;
+  }
+  /** Constraint the values with generic type keys (K) */
+
+
+  Attributes.prototype.get = function (key) {
+    return this.data[key];
+  };
+
+  Attributes.prototype.set = function (update) {
+    Object.assign(this.data, update);
+  };
+
+  return Attributes;
+}();
+
+exports.Attributes = Attributes;
+},{}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 
 module.exports = function bind(fn, thisArg) {
@@ -1932,6 +1962,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.Sync = void 0;
 
 var axios_1 = __importDefault(require("axios"));
+/** Common class to exchange data with server side */
+
 
 var Sync =
 /** @class */
@@ -1967,6 +1999,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Eventing = void 0;
+/** Common class to control eventing model */
 
 var Eventing =
 /** @class */
@@ -2005,6 +2038,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.User = void 0;
 
+var Attributes_1 = require("./Attributes");
+
 var Sync_1 = require("./Sync");
 
 var Eventing_1 = require("./Eventing");
@@ -2014,25 +2049,21 @@ var rootUrl = 'http://localhost:3000/users';
 var User =
 /** @class */
 function () {
-  function User(data) {
-    this.data = data;
+  /** Receive attributes */
+  function User(attrs) {
+    /** Event model */
     this.events = new Eventing_1.Eventing();
+    /** Fetching, saving and udating of data */
+
     this.sync = new Sync_1.Sync(rootUrl);
+    this.attributes = new Attributes_1.Attributes(attrs);
   }
-
-  User.prototype.get = function (propName) {
-    return this.data[propName];
-  };
-
-  User.prototype.set = function (update) {
-    Object.assign(this.data, update);
-  };
 
   return User;
 }();
 
 exports.User = User;
-},{"./Sync":"src/models/Sync.ts","./Eventing":"src/models/Eventing.ts"}],"src/index.ts":[function(require,module,exports) {
+},{"./Attributes":"src/models/Attributes.ts","./Sync":"src/models/Sync.ts","./Eventing":"src/models/Eventing.ts"}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

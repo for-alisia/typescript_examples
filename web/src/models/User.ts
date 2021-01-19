@@ -1,7 +1,8 @@
+import { Attributes } from './Attributes';
 import { Sync } from './Sync';
 import { Eventing } from './Eventing';
 
-interface UserProps {
+export interface UserProps {
   id?: number;
   name?: string;
   age?: number;
@@ -10,17 +11,16 @@ interface UserProps {
 const rootUrl = 'http://localhost:3000/users';
 
 export class User {
+  /** Composition common classes */
+  /** Atributes (UserProps) */
+  public attributes: Attributes<UserProps>;
+  /** Event model */
   public events: Eventing = new Eventing();
-
+  /** Fetching, saving and udating of data */
   public sync: Sync<UserProps> = new Sync<UserProps>(rootUrl);
 
-  constructor(private data: UserProps) {}
-
-  get(propName: string): string | number {
-    return this.data[propName];
-  }
-
-  set(update: UserProps): void {
-    Object.assign(this.data, update);
+  /** Receive attributes */
+  constructor(attrs: UserProps) {
+    this.attributes = new Attributes<UserProps>(attrs);
   }
 }
