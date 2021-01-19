@@ -5,7 +5,7 @@ interface HasId {
 }
 
 /** Common class to exchange data with server side */
-export class Sync<T extends HasId> {
+export class ApiSync<T extends HasId> {
   constructor(public rootUrl: string) {}
 
   fetch(id: number): AxiosPromise<T> {
