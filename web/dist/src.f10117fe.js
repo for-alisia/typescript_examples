@@ -130,17 +130,22 @@ var Attributes =
 /** @class */
 function () {
   function Attributes(data) {
+    var _this = this;
+
     this.data = data;
+    /** Constraint the values with generic type keys (K) */
+
+    this.get = function (key) {
+      return _this.data[key];
+    };
   }
-  /** Constraint the values with generic type keys (K) */
-
-
-  Attributes.prototype.get = function (key) {
-    return this.data[key];
-  };
 
   Attributes.prototype.set = function (update) {
     Object.assign(this.data, update);
+  };
+
+  Attributes.prototype.getAll = function () {
+    return this.data;
   };
 
   return Attributes;
@@ -2005,26 +2010,28 @@ var Eventing =
 /** @class */
 function () {
   function Eventing() {
+    var _this = this;
+
     this.events = {};
+
+    this.on = function (eventName, callback) {
+      var handlers = _this.events[eventName] || [];
+      handlers.push(callback);
+      _this.events[eventName] = handlers;
+    };
+
+    this.trigger = function (eventName) {
+      var handlers = _this.events[eventName];
+
+      if (!handlers || handlers.length === 0) {
+        return;
+      }
+
+      handlers.forEach(function (callback) {
+        callback();
+      });
+    };
   }
-
-  Eventing.prototype.on = function (eventName, callback) {
-    var handlers = this.events[eventName] || [];
-    handlers.push(callback);
-    this.events[eventName] = handlers;
-  };
-
-  Eventing.prototype.trigger = function (eventName) {
-    var handlers = this.events[eventName];
-
-    if (!handlers || handlers.length === 0) {
-      return;
-    }
-
-    handlers.forEach(function (callback) {
-      callback();
-    });
-  };
 
   return Eventing;
 }();
@@ -2049,7 +2056,6 @@ var rootUrl = 'http://localhost:3000/users';
 var User =
 /** @class */
 function () {
-  /** Receive attributes */
   function User(attrs) {
     /** Event model */
     this.events = new Eventing_1.Eventing();
@@ -2058,6 +2064,57 @@ function () {
     this.sync = new Sync_1.Sync(rootUrl);
     this.attributes = new Attributes_1.Attributes(attrs);
   }
+
+  Object.defineProperty(User.prototype, "on", {
+    get: function get() {
+      return this.events.on;
+    },
+    enumerable: false,
+    configurable: true
+  });
+  Object.defineProperty(User.prototype, "trigger", {
+    get: function get() {
+      return this.events.trigger;
+    },
+    enumerable: false,
+    configurable: true
+  });
+  Object.defineProperty(User.prototype, "get", {
+    get: function get() {
+      return this.attributes.get;
+    },
+    enumerable: false,
+    configurable: true
+  });
+
+  User.prototype.set = function (update) {
+    this.attributes.set(update);
+    this.events.trigger('change');
+  };
+
+  User.prototype.fetch = function () {
+    var _this = this;
+
+    var id = this.get('id');
+
+    if (typeof id !== 'number') {
+      throw new Error('Cannot fetch without id!');
+    }
+
+    this.sync.fetch(id).then(function (res) {
+      _this.set(res.data);
+    });
+  };
+
+  User.prototype.save = function () {
+    var _this = this;
+
+    this.sync.save(this.attributes.getAll()).then(function (res) {
+      _this.trigger('save');
+    }).catch(function () {
+      _this.trigger('error');
+    });
+  };
 
   return User;
 }();
@@ -2073,13 +2130,14 @@ Object.defineProperty(exports, "__esModule", {
 var User_1 = require("./models/User");
 
 var user = new User_1.User({
-  name: 'John',
-  age: 27
+  id: 1,
+  name: 'Helen',
+  age: 25
 });
-user.events.on('change', function () {
-  console.log('Event');
+user.on('save', function () {
+  console.log(user);
 });
-user.events.trigger('change');
+user.save();
 },{"./models/User":"src/models/User.ts"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -2108,7 +2166,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60335" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65279" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
