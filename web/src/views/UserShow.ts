@@ -5,9 +5,8 @@ export class UserShow extends View<User> {
   template() {
     return `
       <div>
-        <h1>User Data</h1>
-        <div>User name: ${this.model.get('name')}</div>
-        <div>User age: ${this.model.get('age')}</div>
+        <span>${this.model.get('name')},</span>
+        <span>age: ${this.model.get('age')}</span>
       </div>
     `;
   }
