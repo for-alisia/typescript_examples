@@ -135,7 +135,7 @@ function () {
   UserForm.prototype.eventsMap = function () {
     return {
       'click:button': this.onButtonClick,
-      'hover:h1': this.onHoverHeader
+      'mouseenter:h1': this.onHoverHeader
     };
   };
 
@@ -151,9 +151,28 @@ function () {
     return "\n      <div>\n        <h1>User Form</h1>\n        <input />\n        <button>Click</button>\n      </div>\n    ";
   };
 
+  UserForm.prototype.bindEvents = function (fragment) {
+    var eventsMap = this.eventsMap();
+
+    var _loop_1 = function _loop_1(eventkey) {
+      var _a = eventkey.split(':'),
+          eventName = _a[0],
+          selector = _a[1];
+
+      fragment.querySelectorAll(selector).forEach(function (el) {
+        el.addEventListener(eventName, eventsMap[eventkey]);
+      });
+    };
+
+    for (var eventkey in eventsMap) {
+      _loop_1(eventkey);
+    }
+  };
+
   UserForm.prototype.render = function () {
     var templateElement = document.createElement('template');
     templateElement.innerHTML = this.template();
+    this.bindEvents(templateElement.content);
     this.parent.append(templateElement.content);
   };
 
@@ -200,7 +219,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65279" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50946" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

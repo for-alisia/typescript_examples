@@ -4,7 +4,7 @@ export class UserForm {
   eventsMap(): { [key: string]: () => void } {
     return {
       'click:button': this.onButtonClick,
-      'hover:h1': this.onHoverHeader
+      'mouseenter:h1': this.onHoverHeader
     };
   }
 
@@ -26,10 +26,22 @@ export class UserForm {
     `;
   }
 
+  bindEvents(fragment: DocumentFragment): void {
+    const eventsMap = this.eventsMap();
+
+    for (let eventkey in eventsMap) {
+      const [eventName, selector] = eventkey.split(':');
+
+      fragment.querySelectorAll(selector).forEach(el => {
+        el.addEventListener(eventName, eventsMap[eventkey]);
+      });
+    }
+  }
+
   render(): void {
     const templateElement = document.createElement('template');
     templateElement.innerHTML = this.template();
-
+    this.bindEvents(templateElement.content);
     this.parent.append(templateElement.content);
   }
 }
