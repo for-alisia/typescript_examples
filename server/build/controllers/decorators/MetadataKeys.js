@@ -6,4 +6,5 @@ var Metadatakeys;
     Metadatakeys["method"] = "method";
     Metadatakeys["path"] = "path";
     Metadatakeys["middleware"] = "middleware";
+    Metadatakeys["validator"] = "validator";
 })(Metadatakeys = exports.Metadatakeys || (exports.Metadatakeys = {}));
