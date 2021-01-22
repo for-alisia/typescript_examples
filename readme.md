@@ -18,4 +18,10 @@
 
 5. Web framework
 
-- Simple version of web framework (model, views). In this example renders the list of the users from the server and allows to edit and save their data. There are abstract classes for models (Model, Collection) and views (View, Collection). It's possible to create custom classes, based on abstract ones and render them into the DOM, react on changing of the models and re-render the element.
+- Simple version of web framework (model, views). In this example renders the list of the users from the server and allows to edit and save their data. There are abstract classes for models (Model, Collection) and views (View, CollectionView). It's possible to create custom classes, based on abstract ones and render them into the DOM, react on changing of the models and re-render the element.
+
+6. Express-server
+
+- Simple express server allows user to login in and logout. Developed using classes and decorators. Created decorators for methods (get, post, put, delete, patch), for middlewares, controller decorator for the controller class, that gather all different decorators applied to all methods in the class. For transferring data reflect-metadata was used. Router made using singleton.
+
+7. React + Redux
