@@ -17,6 +17,8 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+/** BASICS */
+
 // interface AppProps {
 //   color?: string;
 // }
