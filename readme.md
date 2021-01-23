@@ -25,3 +25,5 @@
 - Simple express server allows user to login in and logout. Developed using classes and decorators. Created decorators for methods (get, post, put, delete, patch), for middlewares, controller decorator for the controller class, that gather all different decorators applied to all methods in the class. For transferring data reflect-metadata was used. Router made using singleton.
 
 7. React + Redux
+
+- Simple React todo-project with Redux and Thunk.
