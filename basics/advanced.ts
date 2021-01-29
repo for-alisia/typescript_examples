@@ -119,3 +119,71 @@ function moveAnimal(animal: Animal): void {
   }
   console.log('Moving at speed: ' + speed);
 }
+
+/**------------------------------------- */
+
+/** Type Casting */
+
+const userInputElement = <HTMLInputElement>(
+  document.getElementById('user-input')
+);
+const userInputElement1 = document.getElementById(
+  'user-input'
+) as HTMLInputElement;
+
+userInputElement.value = 'Hi';
+userInputElement1.value = 'there';
+
+/** ------------------------------------- */
+
+/** Index Properties */
+
+interface IErrorContainer {
+  [key: string]: string;
+}
+
+const errorBag: IErrorContainer = {
+  email: 'Not a valid email',
+  username: 'Must start with a capital letter!',
+};
+
+/** --------------------------------------- */
+
+/** Functions Overloads */
+
+function add2(a: number, b: number): number;
+function add2(a: string, b: string): string;
+function add2(a: string, b: number): string;
+function add2(a: number, b: string): string;
+function add2(a: Combine, b: Combine): number | string {
+  if (typeof a === 'string' || typeof b === 'string') {
+    return a.toString() + b.toString();
+  }
+
+  return a + b;
+}
+
+const resultAdd = add2('Max', 'Lena');
+resultAdd.split(' ');
+
+/**----------------------------------------- */
+
+/** Optional Chaining */
+
+const fetchedUserData = {
+  id: 'u1',
+  name: 'Max',
+  job: { title: 'CEO', desc: 'Company' },
+};
+
+console.log(fetchedUserData?.job?.title);
+
+/** ---------------------------------------- */
+
+/** Nullish Coalescing */
+
+const someInput = '';
+
+const storedData = someInput || 'DEFAULT'; // In JS
+
+const storedData2 = someInput ?? 'DEFAULT'; // In TS: only null and undefined
