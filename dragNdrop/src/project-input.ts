@@ -1,4 +1,8 @@
+/** Decorators */
 import { Autobind } from './decorators';
+
+/** Utils */
+import { Validatable, validate } from './utils';
 
 export class ProjectInput {
   templateEl: HTMLTemplateElement;
@@ -51,11 +55,26 @@ export class ProjectInput {
   private gatherUserInput(): [string, string, number] | void {
     const enteredTitle = this.titleInputEl.value;
     const enteredDescription = this.descriptionInputEl.value;
-    const enteredPeople = this.peopleInputEl.value;
+    const enteredPeople = +this.peopleInputEl.value;
+
+    const titleValidatable: Validatable = {
+      value: enteredTitle,
+      required: true,
+    };
+    const descriptionValidatable: Validatable = {
+      value: enteredDescription,
+      required: true,
+      minLength: 5,
+    };
+    const peopleValidatable: Validatable = {
+      value: enteredPeople,
+      required: true,
+      min: 1,
+    };
     if (
-      enteredTitle.trim().length === 0 ||
-      enteredDescription.trim().length === 0 ||
-      enteredPeople.trim().length === 0
+      !validate(titleValidatable) ||
+      !validate(descriptionValidatable) ||
+      !validate(peopleValidatable)
     ) {
       alert('Invalid input, please try again');
       return;
