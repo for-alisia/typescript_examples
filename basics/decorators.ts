@@ -9,7 +9,10 @@ class Boat {
   }
 
   @logError('A boat was sunk in the ocean!')
-  pilot(@parameterDecorator speed: string, @parameterDecorator generateWake: boolean): void {
+  pilot(
+    @parameterDecorator speed: string,
+    @parameterDecorator generateWake: boolean
+  ): void {
     if (speed === 'fast') {
       console.log('swish');
     } else {
@@ -53,7 +56,11 @@ function classDecorator(constructor: typeof Boat) {
 // }
 
 /** Decorator to handle an error in a method */
-function logErrorWithoutCustomMsg(target: any, key: string, desc: PropertyDescriptor) {
+function logErrorWithoutCustomMsg(
+  target: any,
+  key: string,
+  desc: PropertyDescriptor
+) {
   /** We can't directly change the methods on a target (like target[key] = ...).
    * We need to access to it's value using object Property Descriptor (common ES5 syntax).
    * It contains an object
@@ -67,7 +74,7 @@ function logErrorWithoutCustomMsg(target: any, key: string, desc: PropertyDescri
   const method = desc.value;
 
   /** Change the method's value to handle an error */
-  desc.value = function() {
+  desc.value = function () {
     try {
       method();
     } catch (e) {
@@ -79,9 +86,9 @@ function logErrorWithoutCustomMsg(target: any, key: string, desc: PropertyDescri
 /** Decorator factories */
 /** If we want to customize decorator message just wrap the decorator function with an additional one */
 function logError(msg: string) {
-  return function(target: any, key: string, desc: PropertyDescriptor) {
+  return function (target: any, key: string, desc: PropertyDescriptor) {
     const method = desc.value;
-    desc.value = function() {
+    desc.value = function () {
       try {
         method();
       } catch (e) {
@@ -92,3 +99,34 @@ function logError(msg: string) {
 }
 
 new Boat().pilot('fast', false);
+
+/** Decorator can render some template */
+/** Returns new class based on original constructor function, where we can
+ * add new functionality
+ */
+function WithTemplate(template: string, hookId: string) {
+  return function <T extends { new (...args: any[]): { name: string } }>(
+    originalConstructor: T
+  ) {
+    return class extends originalConstructor {
+      constructor(..._: any[]) {
+        super();
+        const hookEl = document.getElementById(hookId);
+        if (hookEl) {
+          hookEl.innerHTML = template;
+          hookEl.querySelector('h1')!.textContent = this.name;
+        }
+      }
+    };
+  };
+}
+
+@WithTemplate('<h1>My Person Object</h1>', 'app')
+class Person {
+  name = 'Max';
+  constructor() {
+    console.log('Creating person object...');
+  }
+}
+
+const pers = new Person();
