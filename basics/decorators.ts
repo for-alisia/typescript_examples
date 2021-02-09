@@ -130,3 +130,120 @@ class Person {
 }
 
 const pers = new Person();
+
+/** Method's decorator example - it binds "this" context */
+
+function AutoBind(
+  target: any,
+  methodName: string | Symbol | number,
+  descriptor: PropertyDescriptor
+): PropertyDescriptor {
+  const originalMethod = descriptor.value;
+  const adjDescriptor: PropertyDescriptor = {
+    configurable: true,
+    enumerable: false,
+    get() {
+      const boundFn = originalMethod.bind(this); // it will always bind the correct context
+      return boundFn;
+    },
+  };
+
+  return adjDescriptor;
+}
+
+class Printer {
+  message = 'This works!';
+
+  @AutoBind
+  showMessage() {
+    console.log(this.message);
+  }
+}
+
+const p = new Printer();
+
+const button = document.querySelector('button');
+button?.addEventListener('click', p.showMessage); // here we don't have context problem because of decorator
+
+/** Validation decorator */
+
+/** Decorators can validate tha values of properties (not only types) */
+interface ValidatorConfig {
+  [property: string]: {
+    [validatableProperty: string]: string[]; // list of validators
+  };
+}
+
+const registeredValidators: ValidatorConfig = {};
+
+function Required(target: any, propName: string) {
+  registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propName]: [
+      ...registeredValidators[target.constructor.name][propName],
+      'required',
+    ],
+  };
+}
+
+function PositiveNumber(target: any, propName: string) {
+  registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propName]: [
+      ...registeredValidators[target.constructor.name][propName],
+      'positive',
+    ],
+  };
+}
+
+function validate(obj: any): boolean {
+  const objValidatorConfig = registeredValidators[obj.constructor.name];
+  if (!objValidatorConfig) {
+    return true;
+  }
+
+  let isValid = true;
+  for (const prop in objValidatorConfig) {
+    for (const validator of objValidatorConfig[prop]) {
+      switch (validator) {
+        case 'required':
+          isValid = isValid && !!obj[prop];
+          break;
+        case 'positive':
+          isValid = isValid && obj[prop] > 0;
+          break;
+      }
+    }
+  }
+  return isValid;
+}
+
+class Course {
+  @Required
+  title: string;
+  @PositiveNumber
+  price: number;
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this.price = p;
+  }
+}
+
+const courseForm = document.querySelector('form')!;
+
+courseForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const titleEl = document.getElementById('title') as HTMLInputElement;
+  const priceEl = document.getElementById('price') as HTMLInputElement;
+
+  const title = titleEl.value;
+  const price = +priceEl.value;
+
+  const createdCourse = new Course(title, price);
+
+  if (!validate(createdCourse)) {
+    throw new Error('Cant be validate!');
+  }
+});
