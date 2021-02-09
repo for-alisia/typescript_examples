@@ -1,19 +1,16 @@
 {
-  "name": "understanding-typescript",
+  "name": "dragNdrop-typescript-example",
   "version": "1.0.0",
-  "description": "Understanding TypeScript Course Setup",
+  "description": "Simple project created with TS",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "lite-server"
+    "start": "parcel index.html"
   },
   "keywords": [
     "typescript",
     "course"
   ],
-  "author": "Maximilian Schwarzmüller",
-  "license": "ISC",
-  "devDependencies": {
-    "lite-server": "^2.5.4"
-  }
+  "author": "Elena Romanova",
+  "license": "ISC"
 }
