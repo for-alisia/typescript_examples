@@ -1,3 +1,6 @@
+/** Base Component */
+import { Component } from './component';
+
 /** Decorators */
 import { Autobind } from './decorators';
 
@@ -7,40 +10,26 @@ import { Validatable, validate } from './utils';
 /** State */
 import { projectState } from './app';
 
-export class ProjectInput {
-  templateEl: HTMLTemplateElement;
-  hostEl: HTMLElement;
-  element: HTMLFormElement;
+export class ProjectInput extends Component<HTMLElement, HTMLFormElement> {
   titleInputEl: HTMLInputElement;
   descriptionInputEl: HTMLInputElement;
   peopleInputEl: HTMLInputElement;
 
   constructor() {
-    /** Define elements and crate form from <template> to insert in DOM */
-    this.templateEl = document.getElementById('project-input') as HTMLTemplateElement;
-    this.hostEl = document.getElementById('app')!;
-
-    const importedNode: DocumentFragment = document.importNode(this.templateEl.content, true);
-    this.element = importedNode.firstElementChild as HTMLFormElement;
-    this.element.id = 'user-input';
+    super('project-input', 'app', true, 'user-input');
 
     this.titleInputEl = this.element.querySelector('#title') as HTMLInputElement;
     this.descriptionInputEl = this.element.querySelector('#description') as HTMLInputElement;
     this.peopleInputEl = this.element.querySelector('#people') as HTMLInputElement;
 
-    this.attach();
     this.configure();
   }
 
-  /** Add form from template to the page */
-  private attach() {
-    this.hostEl.insertAdjacentElement('afterbegin', this.element);
-  }
-
-  /** Set event listeners */
-  private configure() {
+  configure() {
     this.element.addEventListener('submit', this.submitHandler);
   }
+
+  renderContent() {}
 
   @Autobind
   private submitHandler(e: Event) {

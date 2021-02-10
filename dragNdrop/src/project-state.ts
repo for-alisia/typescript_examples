@@ -1,15 +1,15 @@
 /** Model */
 import { Project, ProjectStatus } from './project';
+import { State } from './state';
 
-export type Listener = (items: Project[]) => void;
-
-export class ProjectState {
+export class ProjectState extends State<Project> {
   private projects: Project[] = [];
-  private listeners: Listener[] = [];
 
   private static instance: ProjectState;
 
-  private constructor() {}
+  private constructor() {
+    super();
+  }
 
   static getInstance() {
     if (this.instance) {
@@ -33,9 +33,5 @@ export class ProjectState {
     for (const listener of this.listeners) {
       listener([...this.projects]);
     }
-  }
-
-  addListener(listenerFn: Listener) {
-    this.listeners.push(listenerFn);
   }
 }
