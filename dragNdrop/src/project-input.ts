@@ -4,6 +4,9 @@ import { Autobind } from './decorators';
 /** Utils */
 import { Validatable, validate } from './utils';
 
+/** State */
+import { projectState } from './app';
+
 export class ProjectInput {
   templateEl: HTMLTemplateElement;
   hostEl: HTMLElement;
@@ -47,8 +50,8 @@ export class ProjectInput {
 
     if (Array.isArray(userInput)) {
       const [title, description, people] = userInput;
+      projectState.addProject(title, description, people);
       this.clearInputs();
-      console.log(title, description, people);
     }
   }
 
