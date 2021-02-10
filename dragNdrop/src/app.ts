@@ -1,11 +1,11 @@
-import { ProjectList } from './project-list';
-import { ProjectInput } from './project-input';
-import { ProjectState } from './project-state';
+import { ProjectList } from './components/project-list';
+import { ProjectInput } from './components/project-input';
+import { ProjectState } from './state/project-state';
 
 /** Initialize state in App */
 export const projectState = ProjectState.getInstance();
 
 /** Create form and lists */
-const projectInput = new ProjectInput();
-const projectActiveList = new ProjectList('active');
-const projectFinishedList = new ProjectList('finished');
+new ProjectInput();
+new ProjectList('active');
+new ProjectList('finished');

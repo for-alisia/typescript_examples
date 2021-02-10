@@ -1,5 +1,5 @@
 /** Model */
-import { Project, ProjectStatus } from './project';
+import { Project, ProjectStatus } from '../models/project';
 import { State } from './state';
 
 export class ProjectState extends State<Project> {
