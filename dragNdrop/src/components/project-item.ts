@@ -1,10 +1,10 @@
 /** Base class */
-import { Component } from './component.js';
+import { Component } from './component';
 /** Models */
-import { Project } from '../models/project.js';
-import { IDragable } from '../models/dd-models.js';
+import { Project } from '../models/project';
+import { IDragable } from '../models/dd-models';
 /** Decorators */
-import { Autobind } from '../decorators/autobind.js';
+import { Autobind } from '../decorators/autobind';
 
 export class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> implements IDragable {
   private project: Project;

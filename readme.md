@@ -18,13 +18,13 @@
 
 5. ### Drag and Drop Project Manager
 
-- Simple class-based application, that allows to create project and drag and drop it to Active list or Finished list. There are diffrenet abstaract classes for a component and a state. State management uses a singleton concept. Use Parcel to bundle the project.
+- Simple class-based application, that allows to create project and drag and drop it to Active list or Finished list. There are diffrenet abstaract classes for a component and a state. State management uses a singleton concept. Uses webpack as a bundler.
 
 ![project-preview](screens/dragNdrop.screen.png)
 
 6. ### Web framework
 
-- Simple version of web framework (model, views). In this example renders the list of the users from the server and allows to edit and save their data. There are abstract classes for models (Model, Collection) and views (View, CollectionView). It's possible to create custom classes, based on abstract ones and render them into the DOM, react on changing of the models and re-render the element.
+- Simple version of web framework (model, views). In this example renders the list of the users from the server and allows to edit and save their data. There are abstract classes for models (Model, Collection) and views (View, CollectionView). It's possible to create custom classes, based on abstract ones and render them into the DOM, react on changing of the models and re-render the element. Use Parcel to bundle the project.
 
 7. ### Express-server
 

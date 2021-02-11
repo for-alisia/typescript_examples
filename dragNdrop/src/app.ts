@@ -1,6 +1,6 @@
-import { ProjectList } from './components/project-list.js';
-import { ProjectInput } from './components/project-input.js';
-import { ProjectState } from './state/project-state.js';
+import { ProjectList } from './components/project-list';
+import { ProjectInput } from './components/project-input';
+import { ProjectState } from './state/project-state';
 
 /** Initialize state in App */
 export const projectState = ProjectState.getInstance();

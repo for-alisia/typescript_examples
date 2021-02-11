@@ -1,14 +1,14 @@
 /** Component Base */
-import { Component } from './component.js';
+import { Component } from './component';
 /** State */
-import { projectState } from '../app.js';
+import { projectState } from '../app';
 /** Model */
-import { Project, ProjectStatus } from '../models/project.js';
-import { IDragTarget } from '../models/dd-models.js';
+import { Project, ProjectStatus } from '../models/project';
+import { IDragTarget } from '../models/dd-models';
 /** Components */
-import { ProjectItem } from './project-item.js';
+import { ProjectItem } from './project-item';
 /** Decorators */
-import { Autobind } from '../decorators/autobind.js';
+import { Autobind } from '../decorators/autobind';
 
 export class ProjectList extends Component<HTMLDivElement, HTMLElement> implements IDragTarget {
   assignedProjects: Project[] = [];
