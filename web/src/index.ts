@@ -1,6 +1,4 @@
 import { Collection } from './models/Collection';
-import { UserEdit } from './views/UserEdit';
-
 import { UserList } from './views/UserList';
 import { User, UserProps } from './models/User';
 
