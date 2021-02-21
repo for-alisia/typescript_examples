@@ -130,3 +130,13 @@ Basic React Todo App, created using TypeScript template.
 10. ### React + Redux (rrts folder)
 
 Simple React todo-project with Redux and Thunk. Just a try with TypeScript and very basic functionality.
+
+---
+
+11. ### React snippets (tsreact-snippets)
+
+Base little examples of using TS for props, state, refs, events and classes. No UI, just code snippets to have e reference.
+
+12. ### Redux example (redux-ts)
+
+Main goal is to use TS with Redux ecosystem.
