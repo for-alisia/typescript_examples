@@ -139,4 +139,4 @@ Base little examples of using TS for props, state, refs, events and classes. No 
 
 12. ### Redux example (redux-ts)
 
-Main goal is to use TS with Redux ecosystem.
+Main goal is to use TS with Redux ecosystem. useSelector, useDispatch and custom hooks. An example how to organize react-redux-ts project.
